@@ -45,6 +45,7 @@ table.board colgroup, table.board tbody {
 .palette {
     color:black;
     border: solid thin;
+    border-spacing: 10px;
 }
 
 table.palette td {
