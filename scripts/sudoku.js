@@ -165,6 +165,7 @@ function goBack() {
     }
     // Undos last move
     var cell = document.getElementById(moves.slice(-1));
+    cell.textContent = undefined;
 
     // Removes from error class if last move was an error
     if (selectedCell){
@@ -208,6 +209,7 @@ function addDigit() {
         selectedCell = null;
         selectedDigit = null;
     }
+    // Implements finish condition if board is successfully completed
     if (checkFinish()){
         console.log("Game complete");
         for (let i = 0; i < 9; i++) {
@@ -217,7 +219,6 @@ function addDigit() {
             }
         }
     }
-    
 }
 
 /**
