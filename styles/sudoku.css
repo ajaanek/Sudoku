@@ -88,3 +88,7 @@ table.high_scores tr:first-child th {
 .error {
     background-color: #f76c5e;
 }
+
+.game-complete  {
+    background-color: rgb(143, 239, 47);
+}

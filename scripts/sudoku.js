@@ -4,15 +4,18 @@ var moves = new Array();
 var errors = new Array();
 var error_count = 0;
 
-let board_pieces = [[-1,1,-1,-1,-1,-1,-1,9,-1],
-                    [-1,-1,4,-1,-1,-1,2,-1,-1],
-                    [-1,-1,8,-1,-1,5,-1,-1,-1],
-                    [-1,-1,-1,-1,-1,-1,-1,3,-1],
-                    [2,-1,-1,-1,4,-1,1,-1,-1],
-                    [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-                    [-1,-1,1,8,-1,-1,6,-1,-1],
-                    [-1,3,-1,-1,-1,-1,-1,8,-1],
-                    [-1,-1,6,-1,-1,-1,-1,-1,-1]];
+let board_pieces = [[-1, 1, -1, -1, -1, -1, -1, 9, -1],
+                    [-1, -1, 4, -1, -1, -1, 2, -1, -1],
+                    [-1, -1, 8, -1, -1, 5, -1, -1, -1],
+                    [-1, -1, -1, -1, -1, -1, -1, 3, -1],
+                    [2, -1, -1, -1, 4, -1, 1, -1, -1],
+                    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+                    [-1, -1, 1, 8, -1, -1, 6, -1, -1],
+                    [-1, 3, -1, -1, -1, -1, -1, 8, -1],
+                    [-1, -1, 6, -1, -1, -1, -1, -1, -1]];
+
+ 
+//let board_pieces = [board_pieces1];
 
 window.onload = function() {
     generateBoard();
@@ -162,7 +165,6 @@ function goBack() {
     }
     // Undos last move
     var cell = document.getElementById(moves.slice(-1));
-    cell.textContent = null;
 
     // Removes from error class if last move was an error
     if (selectedCell){
@@ -197,6 +199,7 @@ function addDigit() {
             selectedCell.classList.add('error');
             selectedCell.classList.remove('user-input');
             selectedDigit.classList.remove('user-input');
+            disableSelect = true;
             return;
         }
 
@@ -205,7 +208,16 @@ function addDigit() {
         selectedCell = null;
         selectedDigit = null;
     }
-
+    if (checkFinish()){
+        console.log("Game complete");
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                let cellName = 'cell' + i + j;
+                document.getElementById(cellName).classList.add('game-complete');
+            }
+        }
+    }
+    
 }
 
 /**
@@ -312,5 +324,22 @@ function checkBox() {
         }
     }
     boxSet.clear();
+    return true;
+}
+
+/**
+ * Checks if user has finished the game
+ */
+function checkFinish() {
+    const charSet = new Set();
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            var cellName = 'cell' + i + j;
+            const current = document.getElementById(cellName);
+            if (document.getElementById(cellName).textContent == null || document.getElementById(cellName).textContent == undefined || document.getElementById(cellName).textContent == ""){
+                return false;   
+            }
+        }
+    }
     return true;
 }
