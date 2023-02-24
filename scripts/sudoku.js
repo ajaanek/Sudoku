@@ -1,5 +1,4 @@
-
-var selectedCell, selectedDigit, disableSelect = null;
+var selectedCell, selectedDigit, disableSelect, start = null;
 var moves = new Array();
 var errors = new Array();
 var error_count = 0;
@@ -13,6 +12,8 @@ let board_pieces = [[-1, 1, -1, -1, -1, -1, -1, 9, -1],
                     [-1, -1, 1, 8, -1, -1, 6, -1, -1],
                     [-1, 3, -1, -1, -1, -1, -1, 8, -1],
                     [-1, -1, 6, -1, -1, -1, -1, -1, -1]];
+
+                    
 
  
 //let board_pieces = [board_pieces1];
@@ -117,6 +118,9 @@ function selectCell() {
         selectedCell = null;
         return;
     }
+    if (start == null) {
+        start = Date.now();
+    }
     // Updates selectedCell
     selectedCell = this;
     selectedCell.classList.add('user-input')
@@ -139,6 +143,9 @@ function selectDigit() {
     if (selectedDigit == this){
         selectedDigit = null;
         return;
+    }
+    if (start == null) {
+        start = Date.now();
     }
 
     // Updates selectedDigit
@@ -211,13 +218,23 @@ function addDigit() {
     }
     // Implements finish condition if board is successfully completed
     if (checkFinish()){
-        console.log("Game complete");
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
                 let cellName = 'cell' + i + j;
                 document.getElementById(cellName).classList.add('game-complete');
             }
         }
+        var delta = Date.now() - start;
+        delta = (Math.floor(delta / 1000));
+
+        const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${year}/${month}/${day}`;
+        console.log("date:", currentDate, "duration:", delta);
+        scores.add({"date": currentDate, "duration": delta});
+        //module.exports = { scores };
     }
 }
 

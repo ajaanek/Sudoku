@@ -1,10 +1,11 @@
 
-let scores = [{"date": "2021/01/17", duration: "3:41"},
-              {"date": "2021/01/21", duration: "4:01"},
-              {"date": "2021/02/01", duration: "2:52"},
-              {"date": "2021/02/17", duration: "3:08"},
-              {"date": "2021/03/02", duration: "2:51"}]
+/* var http = require('http');
+const scores = require('./sudoku.js'); */
 
+let scores = [{ "date": "2021/01/17", "duration": "3:41" },
+{ "date": "2021/01/21", "duration": "4:01" },
+{ "date": "2021/02/01", "duration": "2:52" },
+{ "date": "2021/02/17", "duration": "3:08" }]
 
 window.onload = function() {
     generateScoreboard();
@@ -28,7 +29,7 @@ function generateScoreboard() {
     tbody1.appendChild(tr);
 
     // Dynamically adds the scores to the scoreboard using the score array
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < scores.length; i++) {
         var rowData = document.createElement('tr');
         var dateData = document.createElement('td');
         dateData.textContent = scores[i]['date'];
@@ -43,3 +44,8 @@ function generateScoreboard() {
     tableArea.appendChild(table);
     document.body.appendChild(tableArea);
 }
+
+/* http.createServer(function (req, res) {
+    res.write(str);
+    res.end();
+}).listen(8080); */
